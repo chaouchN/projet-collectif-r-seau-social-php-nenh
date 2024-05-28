@@ -1,4 +1,6 @@
-<?php require('header.php'); ?>
+<?php
+include 'connection.php';
+require('header.php'); ?>
         <div id="wrapper">
             <?php
             /**
@@ -15,7 +17,6 @@
             /**
              * Etape 2: se connecter à la base de donnée
              */
-            $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
             ?>
 
             <aside>

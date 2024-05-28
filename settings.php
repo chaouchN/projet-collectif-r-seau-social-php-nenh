@@ -1,4 +1,6 @@
-<?php require('header.php'); ?>
+<?php
+include 'connection.php';
+require('header.php'); ?>
         <div id="wrapper" class='profile'>
 
 
@@ -25,7 +27,6 @@
                 /**
                  * Etape 2: se connecter à la base de donnée
                  */
-                $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
 
                 /**
                  * Etape 3: récupérer le nom de l'utilisateur

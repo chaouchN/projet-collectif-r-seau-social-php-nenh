@@ -4,7 +4,7 @@
          * Etape 1: Ouvrir une connexion avec la base de donnée.
          */
         // on va en avoir besoin pour la suite
-        $mysqli = new mysqli("localhost", "root", "root", "socialnetwork");
+        $mysqli = new mysqli("localhost", "root", "", "socialnetwork");
         //verification
         if ($mysqli->connect_errno)
         {
@@ -36,10 +36,10 @@
                 {
                     ?>
                     <article>
-                        <h3><?php echo $tag['label'] ?></h3>
-                        <p><?php echo $tag['id'] ?></p>
+                        <h3>#<?php echo $tag['label'] ?></h3>
+                        <p>id:<?php echo $tag['id'] ?></p>
                         <nav>
-                            <a href="tags.php?tag_id=">Messages</a>
+                            <a href="tags.php?tag_id=<?php echo $tag['id'] ?>">Messages</a>
                         </nav>
                     </article>
                 <?php } ?>
@@ -69,14 +69,14 @@
                     echo "<pre>" . print_r($tag, 1) . "</pre>";
                     ?>
                     <article>
-                        <h3>Alexandra</h3>
-                        <p>id:123</p>
+                        <h3><?php echo $tag['alias'] ?></h3>
+                        <p>id:<?php echo $tag['id'] ?></p>
                         <nav>
-                            <a href="wall.php?user_id=123">Mur</a>
-                            | <a href="feed.php?user_id=123">Flux</a>
-                            | <a href="settings.php?user_id=123">Paramètres</a>
-                            | <a href="followers.php?user_id=123">Suiveurs</a>
-                            | <a href="subscriptions.php?user_id=123">Abonnements</a>
+                            <a href="wall.php?user_id=<?php echo $tag['id'] ?>">Mur</a>
+                            | <a href="feed.php?user_id=<?php echo $tag['id'] ?>">Flux</a>
+                            | <a href="settings.php?user_id=<?php echo $tag['id'] ?>">Paramètres</a>
+                            | <a href="followers.php?user_id=<?php echo $tag['id'] ?>">Fouines</a>
+                            | <a href="subscriptions.php?user_id=<?php echo $tag['id'] ?>">Abonnements</a>
                         </nav>
                     </article>
                 <?php } ?>
