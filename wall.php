@@ -55,10 +55,7 @@ require('header.php'); ?>
                 {
                     echo("Échec de la requete : " . $mysqli->error);
                 }
-
-                /**
-                 * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
-                 */
+                
                 while ($post = $lesInformations->fetch_assoc())
                 {
                     ?>                

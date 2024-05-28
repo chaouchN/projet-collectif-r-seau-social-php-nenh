@@ -57,11 +57,7 @@ require('header.php'); ?>
                     echo("Échec de la requete : " . $mysqli->error);
                     exit();
                 }
-
-                /*
-                 * Etape 5 : @todo : Afficher les utilisatrices en s'inspirant de ce qui a été fait dans news.php
-                 * Attention à en pas oublier de modifier dans le lien les "user_id=123" avec l'id de l'utilisatrice
-                 */
+                
                 while ($tag = $lesInformations->fetch_assoc())
                 {
                     ?>
