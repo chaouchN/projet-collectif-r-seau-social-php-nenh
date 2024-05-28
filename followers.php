@@ -25,14 +25,23 @@ require('header.php'); ?>
                     GROUP BY users.id
                     ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
+                if ( ! $lesInformations)
+                {
+                    echo("Échec de la requete : " . $mysqli->error);
+                }
+
+                while ($post = $lesInformations->fetch_assoc())
+                {
+               
                 // Etape 4: à vous de jouer
                 //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous 
                 ?>
                 <article>
                     <img src="user.jpg" alt="blason"/>
-                    <h3>Béatrice</h3>
-                    <p>id:321</p>
+                    <h3><?php echo $post['alias']?></h3>
+                    <p>id:<?php echo $post['id']?></p>
                 </article>
+                <?php } ?>
             </main>
         </div>
     </body>
