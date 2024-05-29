@@ -30,6 +30,7 @@ require('header.php'); ?>
                 // si vous ne la comprenez pas c'est normal, passez, on y reviendra
                 $laQuestionEnSql = "
                     SELECT posts.content,
+                    posts_tags.tag_id,
                     posts.created,
                     posts.user_id,
                     users.alias as author_name,  
@@ -69,7 +70,7 @@ require('header.php'); ?>
                         </div>
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
-                            <a href="">#<?php echo $post['taglist']?></a>
+                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">#<?php echo $post['taglist']?></a>
                         </footer>
                     </article>
                     <?php

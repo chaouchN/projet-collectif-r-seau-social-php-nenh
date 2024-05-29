@@ -39,7 +39,7 @@ require('header.php'); ?>
                  * Etape 3: récupérer tous les messages de l'utilisatrice
                  */
                 $laQuestionEnSql = "
-                    SELECT posts.content, posts.created, users.alias as author_name, posts.user_id,
+                    SELECT posts.content, posts.created, users.alias as author_name, posts.user_id, posts_tags.tag_id,
                     COUNT(likes.id) as like_number, GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts
                     JOIN users ON  users.id=posts.user_id
@@ -70,7 +70,7 @@ require('header.php'); ?>
                         </div>                                            
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
-                            <a href="">#<?php echo $post['taglist']?></a>
+                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">#<?php echo $post['taglist']?></a>
                         </footer>
                     </article>
                 <?php } ?>

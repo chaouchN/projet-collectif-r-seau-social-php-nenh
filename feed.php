@@ -45,6 +45,7 @@ require('header.php'); ?>
                  */
                 $laQuestionEnSql = "
                     SELECT posts.content, posts.user_id,
+                    posts_tags.tag_id,
                     posts.created,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
@@ -83,7 +84,7 @@ require('header.php'); ?>
                         </div>                                            
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
-                            <a href="">#<?php echo $post['taglist']?></a>
+                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">#<?php echo $post['taglist']?></a>
                         </footer>
                     </article>
                 <?php } ?>
