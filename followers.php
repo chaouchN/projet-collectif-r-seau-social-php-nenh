@@ -32,13 +32,12 @@ require('header.php'); ?>
 
                 while ($post = $lesInformations->fetch_assoc())
                 {
-               
-                // Etape 4: à vous de jouer
-                //@todo: faire la boucle while de parcours des abonnés et mettre les bonnes valeurs ci dessous 
+                    
+            
                 ?>
                 <article>
                     <img src="user.jpg" alt="blason"/>
-                    <h3><?php echo $post['alias']?></h3>
+                    <h3><a href="wall.php?user_id=<?php echo $post['id'] ?>"><?php echo $post['alias']?></a></h3>
                     <p>id:<?php echo $post['id']?></p>
                 </article>
                 <?php } ?>

@@ -32,7 +32,7 @@ require('header.php'); ?>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les message des utilisatrices
-                        auxquel est abonnée l'utilisatrice <?php echo $user['alias'] ?>
+                        auxquel est abonnée l'utilisatrice <a href="wall.php?user_id=<?php echo $user['id'] ?>"><?php echo $user['alias'] ?></a>
                         (n° <?php echo $userId ?>)
                     </p>
 
@@ -44,7 +44,7 @@ require('header.php'); ?>
                  * Etape 3: récupérer tous les messages des abonnements
                  */
                 $laQuestionEnSql = "
-                    SELECT posts.content,
+                    SELECT posts.content, posts.user_id,
                     posts.created,
                     users.alias as author_name,  
                     count(likes.id) as like_number,  
@@ -64,19 +64,19 @@ require('header.php'); ?>
                 {
                     echo("Échec de la requete : " . $mysqli->error);
                 }
-
                 /**
                  * Etape 4: @todo Parcourir les messsages et remplir correctement le HTML avec les bonnes valeurs php
                  * A vous de retrouver comment faire la boucle while de parcours...
                  */
-                              
+                
                 while ($post = $lesInformations->fetch_assoc())
+                
                 {?>  
                     <article>
                         <h3>
                             <time datetime='2020-02-01 11:12:13' ><?php echo $post['created']?></time>
                         </h3>
-                        <address><?php echo $post['author_name']?></address>
+                        <address><a href="wall.php?user_id=<?php echo $post['user_id'] ?>"><?php echo $post['author_name']?></a></address>
                         <div>
                             <p><?php echo $post['content']?></p>
                             
