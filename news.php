@@ -29,22 +29,31 @@ require('header.php'); ?>
                 // cette requete vous est donnée, elle est complexe mais correcte, 
                 // si vous ne la comprenez pas c'est normal, passez, on y reviendra
                 $laQuestionEnSql = "
-                    SELECT posts.content,
-                    posts_tags.tag_id,
-                    posts.created,
-                    posts.user_id,
-                    users.alias as author_name,  
-                    count(likes.id) as like_number,  
-                    GROUP_CONCAT(DISTINCT tags.label) AS taglist 
-                    FROM posts
-                    JOIN users ON  users.id=posts.user_id
-                    LEFT JOIN posts_tags ON posts.id = posts_tags.post_id  
-                    LEFT JOIN tags       ON posts_tags.tag_id  = tags.id 
-                    LEFT JOIN likes      ON likes.post_id  = posts.id 
-                    GROUP BY posts.id
-                    ORDER BY posts.created DESC  
-                    LIMIT 5
-                    ";
+                    SELECT 
+                        posts.content,
+                        GROUP_CONCAT(DISTINCT posts_tags.tag_id) AS tag_ids,
+                        posts.created,
+                        posts.user_id,
+                        users.alias AS author_name,
+                        COUNT(likes.id) AS like_number,
+                        GROUP_CONCAT(DISTINCT tags.label) AS taglist
+                    FROM 
+                        posts
+                    JOIN 
+                        users ON users.id = posts.user_id
+                    LEFT JOIN 
+                        posts_tags ON posts.id = posts_tags.post_id
+                    LEFT JOIN 
+                        tags ON posts_tags.tag_id = tags.id
+                    LEFT JOIN 
+                        likes ON likes.post_id = posts.id
+                    GROUP BY 
+                        posts.id
+                    ORDER BY 
+                        posts.created DESC
+                    LIMIT 5;
+                ";
+            
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
                 if ( ! $lesInformations)
@@ -59,6 +68,17 @@ require('header.php'); ?>
                 // NB: à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
                 while ($post = $lesInformations->fetch_assoc())
                 {
+                    $our_ids = explode(',', $post['tag_ids']);
+                    $our_tags = explode(',', $post['taglist']);
+                    /*
+                    Ce que j'ai modifie :
+                        -Reindentation de la requete SQL + ajout de Group concat pour les differents tag_id de chaque post
+                        -Finalisation de la feature de chaque tag avec le lien
+                        -Suggestion : Remplacement des coeurs des likes par l'emoji 👍
+                        -Dans wall.php : modif de la variable utilisee pour user_id ($post n'existe pas encore donc ne pouvait pas fonctionner)
+                    Si OK : PUSH
+                    + git rm connection.php
+                    */
                     ?>
                     <article>
                         <h3>
@@ -69,8 +89,14 @@ require('header.php'); ?>
                             <p><?php echo $post['content']?></p>
                         </div>
                         <footer>
-                            <small>♥ <?php echo $post['like_number']?></small>
-                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">#<?php echo $post['taglist']?></a>
+                            <small>👍 <?php echo $post['like_number']?></small>
+                    <?php
+                    for ($i = 0; $i < count($our_ids); $i++) {
+                        echo <<<HTML
+                            <a href="tags.php?tag_id=$our_ids[$i]">#$our_tags[$i]</a>
+                        HTML;
+                    }
+                    ?>
                         </footer>
                     </article>
                     <?php

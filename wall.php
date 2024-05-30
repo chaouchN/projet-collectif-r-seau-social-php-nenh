@@ -28,7 +28,7 @@ require('header.php'); ?>
                 <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
-                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice <a href="wall.php?user_id=<?php echo $post['user_id'] ?>"><?php echo $user['alias'] ?></a>
+                    <p>Sur cette page vous trouverez tous les message de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['alias'] ?></a>
                         (n° <?php echo $userId ?>)
                     </p>
                 </section>
