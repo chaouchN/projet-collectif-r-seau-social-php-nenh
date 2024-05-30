@@ -45,8 +45,8 @@ require('header.php'); ?>
                 $laQuestionEnSql = "
                     SELECT posts.content,
                     posts.created,
-                    posts_tags.tag_id,
-                    users.alias as author_name,  
+                    users.alias as author_name,
+                    GROUP_CONCAT(DISTINCT posts_tags.tag_id) AS tag_ids,
                     count(likes.id) as like_number,  
                     GROUP_CONCAT(DISTINCT tags.label) AS taglist 
                     FROM posts_tags as filter 
@@ -79,7 +79,7 @@ require('header.php'); ?>
                         </div>                                            
                         <footer>
                             <small>♥ <?php echo $post['like_number']?></small>
-                            <a href="tags.php?tag_id=<?php echo $post['tag_id'] ?>">#<?php echo $post['taglist']?></a>
+                            <a href="tags.php?tag_id=<?php echo $post['tag_ids'] ?>">#<?php echo $post['taglist']?></a>
                         </footer>
                     </article>
                 <?php } ?>
