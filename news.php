@@ -68,7 +68,10 @@ require('header.php'); ?>
                 $lesInfoDesTags = $mysqli->query($laQuestionEnSql);
                 if ( ! $lesInfoDesTags)
                 {
-                    queryError($mysqli->error, $laQuestionEnSql);
+                    echo "<article>";
+                    echo("Échec de la requete : " . $mysqli->error);
+                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
+                    exit();
                 }
                 $tags = $lesInfoDesTags->fetch_all();
 
