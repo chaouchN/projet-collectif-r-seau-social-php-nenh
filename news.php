@@ -63,6 +63,16 @@ require('header.php'); ?>
                     echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
                     exit();
                 }
+                $laQuestionEnSql = "SELECT id, label FROM tags ORDER BY id";
+                $lesInfoDesTags = $mysqli->query($laQuestionEnSql);
+                if ( ! $lesInfoDesTags)
+                {
+                    echo "<article>";
+                    echo("Échec de la requete : " . $mysqli->error);
+                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
+                    exit();
+                }
+                $tags = $lesInfoDesTags->fetch_all();
 
                 // Etape 3: Parcourir ces données et les ranger bien comme il faut dans du html
                 // NB: à chaque tour du while, la variable post ci dessous reçois les informations du post suivant.
@@ -71,16 +81,7 @@ require('header.php'); ?>
                     $our_ids = explode(',', $post['tag_ids']);
                     
                     $our_tags = explode(',', $post['taglist']);
-                    /*
-                    Ce que j'ai modifie :
-                        -Reindentation de la requete SQL + ajout de Group concat pour les differents tag_id de chaque post
-                        -Finalisation de la feature de chaque tag avec le lien
-                        -Suggestion : Remplacement des coeurs des likes par l'emoji 👍
-                        -Dans wall.php : modif de la variable utilisee pour user_id ($post n'existe pas encore donc ne pouvait pas fonctionner)
-                        Si OK : PUSH
-                        + git rm connection.php
-                        */
-                        ?>
+                    ?>
                     <article>
                         <h3>
                             <time><?php echo $post['created'] ?></time>
@@ -91,11 +92,9 @@ require('header.php'); ?>
                         </div>
                         <footer>
                             <small>👍 <?php echo $post['like_number']?></small>
-                            <?php
-                            var_dump($our_ids);
-                            var_dump($our_tags);
-                            for ($i = 0; $i < count($our_ids); $i++) {
-                                echo <<<HTML
+                    <?php
+                    for ($i = 0; $i < count($our_ids); $i++) {
+                        echo <<<HTML
                             <a href="tags.php?tag_id=$our_ids[$i]">#$our_tags[$i]</a>
                         HTML;
                     }
