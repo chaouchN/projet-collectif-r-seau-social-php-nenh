@@ -7,7 +7,7 @@ if (isset($_GET['deconnexion']) && $_GET['deconnexion']=='1'){
 require('header.php'); ?>
         <div id="wrapper">
             <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src=<?php echo $users['photo_profil']?> alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les derniers messages de
@@ -57,6 +57,12 @@ require('header.php'); ?>
                         posts.creeated DESC
                     LIMIT 5;
                 ";
+                $laquestionenSQL2= "
+                SELECT 
+                users.photo_profil,
+                FROM
+                users
+                ";
             
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
@@ -77,6 +83,7 @@ require('header.php'); ?>
                 while ($post = $lesInformations->fetch_assoc())
                 {
                     $our_ids = explode(',', $post['tag_ids']);
+                    
                     $our_tags = explode(',', $post['taglist']);
                     ?>
                     <article>

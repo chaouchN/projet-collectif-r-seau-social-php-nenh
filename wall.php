@@ -28,7 +28,7 @@ require('header.php'); ?>
                 $user = $lesInformations->fetch_assoc();
                
                 ?>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src=<?php echo $user['photo_profil']?> alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les message de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['alias'] ?></a>
@@ -46,7 +46,7 @@ require('header.php'); ?>
                         posts.content, 
                         posts.created, 
                         users.alias as author_name, 
-                        posts.user_id, 
+                        posts.user_id,
                         GROUP_CONCAT(DISTINCT posts_tags.tag_id) AS tag_ids,
                         COUNT(likes.id) as like_number, 
                         GROUP_CONCAT(DISTINCT tags.label) AS taglist
@@ -75,7 +75,6 @@ require('header.php'); ?>
                 
                 while ($post = $lesInformations->fetch_assoc())
                 {
-                    echo "<pre>" . print_r($post, 1) . "</pre>";
                     ?>                
                     <article>
                         <h3>
