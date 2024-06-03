@@ -1,21 +1,25 @@
 <?php
 include 'connection.php';
-require('header.php'); ?>
+require('header.php');
+require ('photoPath.php');
+$userId = intval($_GET['user_id']);
+$userIndex = $userId - 1;
+$userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
+ ?>
         <div id="wrapper">          
             <aside>
-                <img src = <?php echo $user['photo_profil']?> alt = "Portrait de l'utilisatrice"/>
+                <img src =<?php echo $userPhotoPath?> alt = "Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
                         suivent les messages de l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?></p>
+                        n° <?php echo $userId ?></p>
 
                 </section>
             </aside>
             <main class='contacts'>
                 <?php
                 // Etape 1: récupérer l'id de l'utilisateur
-                $userId = intval($_GET['user_id']);
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "
                     SELECT users.*
@@ -32,11 +36,12 @@ require('header.php'); ?>
 
                 while ($post = $lesInformations->fetch_assoc())
                 {
-                    
+                    $userIndex = $post['id'] - 1;
+                    $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
             
                 ?>
                 <article>
-                    <img src=<?php echo $user['photo_profil']?>alt="blason"/>
+                    <img src=<?php echo $userPhotoPath?> alt="blason"/>
                     <h3><a href="wall.php?user_id=<?php echo $post['id'] ?>"><?php echo $post['alias']?></a></h3>
                     <p>id:<?php echo $post['id']?></p>
                 </article>
@@ -45,3 +50,28 @@ require('header.php'); ?>
         </div>
     </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

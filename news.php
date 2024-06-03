@@ -3,7 +3,7 @@ include 'connection.php';
 require('header.php'); ?>
         <div id="wrapper">
             <aside>
-                <img src=<?php echo $users['photo_profil']?> alt="Portrait de l'utilisatrice"/>
+                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les derniers messages de
@@ -53,13 +53,7 @@ require('header.php'); ?>
                         posts.created DESC
                     LIMIT 5;
                 ";
-                $laquestionenSQL2= "
-                SELECT 
-                users.photo_profil,
-                FROM
-                users
-                ";
-            
+               
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
                 if ( ! $lesInformations)
@@ -111,6 +105,30 @@ require('header.php'); ?>
                     <?php
                     // avec le <?php ci-dessus on retourne en mode php 
                 }// cette accolade ferme et termine la boucle while ouverte avant.
+                ?>
+
+                <?php
+
+                $laquestionenSQL2= "
+                SELECT 
+                users.photo_profil,
+                FROM
+                users
+                ";
+                $lesInformations2 = $mysqli->query($laQuestionEnSql2);
+                // Vérification
+                if ( ! $lesInformations2)
+                {
+                    echo "<article>";
+                    echo("Échec de la requete : " . $mysqli->error);
+                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql2</code></p>");
+                    exit();
+                }
+                while ($users = $lesInformations2->fetch_assoc())
+                {
+
+                }
+
                 ?>
 
             </main>
