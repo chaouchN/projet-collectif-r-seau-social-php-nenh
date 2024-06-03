@@ -3,7 +3,7 @@ include 'connection.php';
 require('header.php'); ?>
         <div id="wrapper">
             <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src=<?php echo $users['photo_profil']?> alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les derniers messages de
@@ -53,6 +53,12 @@ require('header.php'); ?>
                         posts.created DESC
                     LIMIT 5;
                 ";
+                $laquestionenSQL2= "
+                SELECT 
+                users.photo_profil,
+                FROM
+                users
+                ";
             
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
@@ -69,6 +75,7 @@ require('header.php'); ?>
                 while ($post = $lesInformations->fetch_assoc())
                 {
                     $our_ids = explode(',', $post['tag_ids']);
+                    
                     $our_tags = explode(',', $post['taglist']);
                     /*
                     Ce que j'ai modifie :
@@ -76,10 +83,10 @@ require('header.php'); ?>
                         -Finalisation de la feature de chaque tag avec le lien
                         -Suggestion : Remplacement des coeurs des likes par l'emoji 👍
                         -Dans wall.php : modif de la variable utilisee pour user_id ($post n'existe pas encore donc ne pouvait pas fonctionner)
-                    Si OK : PUSH
-                    + git rm connection.php
-                    */
-                    ?>
+                        Si OK : PUSH
+                        + git rm connection.php
+                        */
+                        ?>
                     <article>
                         <h3>
                             <time><?php echo $post['created'] ?></time>
@@ -90,9 +97,11 @@ require('header.php'); ?>
                         </div>
                         <footer>
                             <small>👍 <?php echo $post['like_number']?></small>
-                    <?php
-                    for ($i = 0; $i < count($our_ids); $i++) {
-                        echo <<<HTML
+                            <?php
+                            var_dump($our_ids);
+                            var_dump($our_tags);
+                            for ($i = 0; $i < count($our_ids); $i++) {
+                                echo <<<HTML
                             <a href="tags.php?tag_id=$our_ids[$i]">#$our_tags[$i]</a>
                         HTML;
                     }

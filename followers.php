@@ -3,7 +3,7 @@ include 'connection.php';
 require('header.php'); ?>
         <div id="wrapper">          
             <aside>
-                <img src = "user.jpg" alt = "Portrait de l'utilisatrice"/>
+                <img src = <?php echo $user['photo_profil']?> alt = "Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
@@ -36,7 +36,7 @@ require('header.php'); ?>
             
                 ?>
                 <article>
-                    <img src="user.jpg" alt="blason"/>
+                    <img src=<?php echo $user['photo_profil']?>alt="blason"/>
                     <h3><a href="wall.php?user_id=<?php echo $post['id'] ?>"><?php echo $post['alias']?></a></h3>
                     <p>id:<?php echo $post['id']?></p>
                 </article>
