@@ -1,6 +1,8 @@
 <?php
 include 'connection.php';
-require('header.php'); ?>
+require('header.php'); 
+require('photoPath.php');
+?>
         <div id="wrapper">
             <?php
             /**
@@ -23,6 +25,9 @@ require('header.php'); ?>
                 $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();
+                if ( ! $user['photo_profil']) {
+                    $user['photo_profil'] = 'user.jpg';
+                }
                
                 ?>
                 <img src=<?php echo $user['photo_profil']?> alt="Portrait de l'utilisatrice"/>
