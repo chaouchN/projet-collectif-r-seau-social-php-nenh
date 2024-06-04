@@ -60,19 +60,9 @@ require('header.php'); ?>
             
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
-                if ( ! $lesInformations)
-                {
-                    queryError($mysqli->error, $laQuestionEnSql);
-                }
+
                 $laQuestionEnSql = "SELECT id, label FROM tags ORDER BY id";
                 $lesInfoDesTags = $mysqli->query($laQuestionEnSql);
-                if ( ! $lesInfoDesTags)
-                {
-                    echo "<article>";
-                    echo("Échec de la requete : " . $mysqli->error);
-                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
-                    exit();
-                }
                 $tags = $lesInfoDesTags->fetch_all();
 
                 // Etape 3: Parcourir ces données et les ranger bien comme il faut dans du html
