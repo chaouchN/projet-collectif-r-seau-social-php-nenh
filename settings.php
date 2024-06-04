@@ -3,7 +3,7 @@ session_start();
 include 'connection.php';
 require('header.php'); 
 require ('photoPath.php');
-$userId = intval($_GET['user_id']);
+$userId = $_SESSION["connected_id"];
 $userIndex = $userId - 1;
 $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
 ?>

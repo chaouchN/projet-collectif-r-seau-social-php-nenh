@@ -54,7 +54,7 @@ require('header.php'); ?>
                     GROUP BY 
                         posts.id
                     ORDER BY 
-                        posts.creeated DESC
+                        posts.created DESC
                     LIMIT 5;
                 ";
             

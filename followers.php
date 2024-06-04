@@ -4,6 +4,7 @@ include 'connection.php';
 require('header.php');
 require ('photoPath.php');
 $userId = intval($_GET['user_id']);
+$user=$_SESSION["connected_id"];
 $userIndex = $userId - 1;
 $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
  ?>
@@ -14,14 +15,14 @@ $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes qui
                         suivent les messages de l'utilisatrice
-                        n° <?php echo $_SESSION["connected_id"] ?></p>
+                        n° <?php echo $userId ?></p>
 
                 </section>
             </aside>
             <main class='contacts'>
                 <?php
                 // Etape 1: récupérer l'id de l'utilisateur
-                $userId = $_SESSION["connected_id"];
+                
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "
                     SELECT users.*
