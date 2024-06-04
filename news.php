@@ -57,7 +57,7 @@ require('header.php'); ?>
                         posts.creeated DESC
                     LIMIT 5;
                 ";
-               
+            
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
                 if ( ! $lesInformations)
@@ -80,7 +80,6 @@ require('header.php'); ?>
                 while ($post = $lesInformations->fetch_assoc())
                 {
                     $our_ids = explode(',', $post['tag_ids']);
-                    
                     $our_tags = explode(',', $post['taglist']);
                     ?>
                     <article>
@@ -92,7 +91,7 @@ require('header.php'); ?>
                             <p><?php echo $post['content']?></p>
                         </div>
                         <footer>
-                            <small>👍 <?php echo $post['like_number']?></small>
+                            <small>🦝<?php echo $post['like_number']?></small>
                     <?php
                     for ($i = 0; $i < count($our_ids); $i++) {
                         $labelIndex = $our_ids[$i] - 1;
@@ -107,30 +106,6 @@ require('header.php'); ?>
                     <?php
                     // avec le <?php ci-dessus on retourne en mode php 
                 }// cette accolade ferme et termine la boucle while ouverte avant.
-                ?>
-
-                <?php
-
-                $laquestionenSQL2= "
-                SELECT 
-                users.photo_profil,
-                FROM
-                users
-                ";
-                $lesInformations2 = $mysqli->query($laQuestionEnSql2);
-                // Vérification
-                if ( ! $lesInformations2)
-                {
-                    echo "<article>";
-                    echo("Échec de la requete : " . $mysqli->error);
-                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql2</code></p>");
-                    exit();
-                }
-                while ($users = $lesInformations2->fetch_assoc())
-                {
-
-                }
-
                 ?>
 
             </main>
