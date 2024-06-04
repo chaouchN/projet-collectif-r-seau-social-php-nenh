@@ -83,7 +83,7 @@ require('header.php'); ?>
                             
                         </div>                                            
                         <footer>
-                            <small>♥ <?php echo $post['like_number']?></small>
+                            <small> 🦝 <?php echo $post['like_number']?></small>
                             <a href="tags.php?tag_id=<?php echo $post['tag_ids'] ?>">#<?php echo $post['taglist']?></a>
                         </footer>
                     </article>

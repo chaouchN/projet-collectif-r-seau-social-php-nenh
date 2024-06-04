@@ -1,6 +1,8 @@
 <?php
 include 'connection.php';
-require('header.php'); ?>
+require('header.php'); 
+require('photoPath.php');
+?>
         <div id="wrapper">
             <?php
             /**
@@ -23,9 +25,12 @@ require('header.php'); ?>
                 $laQuestionEnSql = "SELECT * FROM users WHERE id= '$userId' ";
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 $user = $lesInformations->fetch_assoc();
+                if ( ! $user['photo_profil']) {
+                    $user['photo_profil'] = 'user.jpg';
+                }
                
                 ?>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src=<?php echo $user['photo_profil']?> alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez tous les message de l'utilisatrice <a href="wall.php?user_id=<?php echo $userId ?>"><?php echo $user['alias'] ?></a>
@@ -43,7 +48,7 @@ require('header.php'); ?>
                         posts.content, 
                         posts.created, 
                         users.alias as author_name, 
-                        posts.user_id, 
+                        posts.user_id,
                         GROUP_CONCAT(DISTINCT posts_tags.tag_id) AS tag_ids,
                         COUNT(likes.id) as like_number, 
                         GROUP_CONCAT(DISTINCT tags.label) AS taglist
@@ -72,7 +77,6 @@ require('header.php'); ?>
                 
                 while ($post = $lesInformations->fetch_assoc())
                 {
-                    echo "<pre>" . print_r($post, 1) . "</pre>";
                     ?>                
                     <article>
                         <h3>
@@ -84,7 +88,7 @@ require('header.php'); ?>
                             
                         </div>                                            
                         <footer>
-                            <small>♥ <?php echo $post['like_number']?></small>
+                            <small>🦝 <?php echo $post['like_number']?></small>
                             <a href="tags.php?tag_id=<?php echo $post['tag_ids'] ?>">#<?php echo $post['taglist']?></a>
                         </footer>
                     </article>

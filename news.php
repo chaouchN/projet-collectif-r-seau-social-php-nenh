@@ -51,7 +51,7 @@ require('header.php'); ?>
                     GROUP BY 
                         posts.id
                     ORDER BY 
-                        posts.creeated DESC
+                        posts.created DESC
                     LIMIT 5;
                 ";
             
@@ -85,7 +85,7 @@ require('header.php'); ?>
                             <p><?php echo $post['content']?></p>
                         </div>
                         <footer>
-                            <small>👍 <?php echo $post['like_number']?></small>
+                            <small>🦝<?php echo $post['like_number']?></small>
                     <?php
                     for ($i = 0; $i < count($our_ids); $i++) {
                         $labelIndex = $our_ids[$i] - 1;
