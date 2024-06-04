@@ -1,9 +1,14 @@
 <?php
 include 'connection.php';
-require('header.php'); ?>
+require('header.php');
+require ('photoPath.php');
+$userId = intval($_GET['user_id']);
+$userIndex = $userId - 1;
+$userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
+?>
         <div id="wrapper">
             <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src=<?php echo $userPhotoPath?> alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes dont
@@ -34,10 +39,13 @@ require('header.php'); ?>
 
                 while ($post = $lesInformations->fetch_assoc())
                 {
+
+                    $userIndex = $post['id'] - 1;
+                    $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
                
                ?> 
                 <article>
-                    <img src="user.jpg" alt="blason"/>
+                    <img src=<?php echo $userPhotoPath?> alt="blason"/>
                     <h3><a href="wall.php?user_id=<?php echo $post['id'] ?>"><?php echo $post['alias']?></a></h3>
                     <p>id:<?php echo $post['id']?></p>                    
                 </article>
