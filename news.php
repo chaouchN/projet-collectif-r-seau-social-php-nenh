@@ -54,7 +54,7 @@ require('header.php'); ?>
                     GROUP BY 
                         posts.id
                     ORDER BY 
-                        posts.created DESC
+                        posts.creeated DESC
                     LIMIT 5;
                 ";
             
@@ -62,19 +62,13 @@ require('header.php'); ?>
                 // Vérification
                 if ( ! $lesInformations)
                 {
-                    echo "<article>";
-                    echo("Échec de la requete : " . $mysqli->error);
-                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
-                    exit();
+                    queryError($mysqli->error, $laQuestionEnSql);
                 }
                 $laQuestionEnSql = "SELECT id, label FROM tags ORDER BY id";
                 $lesInfoDesTags = $mysqli->query($laQuestionEnSql);
                 if ( ! $lesInfoDesTags)
                 {
-                    echo "<article>";
-                    echo("Échec de la requete : " . $mysqli->error);
-                    echo("<p>Indice: Vérifiez la requete  SQL suivante dans phpmyadmin<code>$laQuestionEnSql</code></p>");
-                    exit();
+                    queryError($mysqli->error, $laQuestionEnSql);
                 }
                 $tags = $lesInfoDesTags->fetch_all();
 
