@@ -1,6 +1,9 @@
 <?php 
 include 'connection.php';
-include 'errors.php';
+if (isset($_GET['deconnexion']) && $_GET['deconnexion']=='1'){
+    
+    session_destroy();
+}
 require('header.php'); ?>
         <div id="wrapper">
             <aside>
@@ -51,22 +54,15 @@ require('header.php'); ?>
                     GROUP BY 
                         posts.id
                     ORDER BY 
-                        posts.created DESC
+                        posts.creeated DESC
                     LIMIT 5;
                 ";
             
                 $lesInformations = $mysqli->query($laQuestionEnSql);
                 // Vérification
-                if ( ! $lesInformations)
-                {
-                    queryError($mysqli->error, $laQuestionEnSql);
-                }
+
                 $laQuestionEnSql = "SELECT id, label FROM tags ORDER BY id";
                 $lesInfoDesTags = $mysqli->query($laQuestionEnSql);
-                if ( ! $lesInfoDesTags)
-                {
-                    queryError($mysqli->error, $laQuestionEnSql);
-                }
                 $tags = $lesInfoDesTags->fetch_all();
 
                 // Etape 3: Parcourir ces données et les ranger bien comme il faut dans du html

@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'connection.php';
 require('header.php'); 
 require ('photoPath.php');
@@ -14,7 +15,7 @@ $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les informations de l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?></p>
+                        n° <?php echo $_SESSION["connected_id"] ?></p>
 
                 </section>
             </aside>
@@ -27,7 +28,7 @@ $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
                  * Documentation : https://www.php.net/manual/fr/reserved.variables.get.php
                  * ... mais en résumé c'est une manière de passer des informations à la page en ajoutant des choses dans l'url
                  */
-                $userId = intval($_GET['user_id']);
+                $userId = $_SESSION["connected_id"];
 
                 /**
                  * Etape 2: se connecter à la base de donnée
@@ -73,6 +74,9 @@ $userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
                         <dd><?php echo $user['totalgiven'] ?></dd>
                         <dt>Nombre de "J'aime" reçus</dt>
                         <dd><?php echo $user['totalrecieved'] ?></dd>
+                        <dt>Photo de profil</dt>
+                        <dd><img src="<?php $user['photo_profil'] ?>"></dd>
+
                     </dl>
 
                 </article>

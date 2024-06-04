@@ -1,4 +1,5 @@
 <?php
+
 include 'connection.php';
 require('header.php'); ?>
         <div id="wrapper">
@@ -11,7 +12,7 @@ require('header.php'); ?>
             /**
              * Etape 1: Le mur concerne un utilisateur en particulier
              */
-            $userId = intval($_GET['user_id']);
+            $userId = $_SESSION["connected_id"];
             ?>
             <?php
             /**
