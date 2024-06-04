@@ -1,5 +1,5 @@
 body{
-    background-color: #003;
+    background-color: black;
     font-family: Arial;
 }
 
@@ -92,7 +92,7 @@ body>header #user:hover ul{
     overflow-y:  scroll;
 }
 #wrapper main article{
-    background-color: #fff;
+    background-color:  #fff;
     padding:1em;
     margin-bottom: 1em ;
     border-radius: 1em;

@@ -1,12 +1,17 @@
 <?php
 session_start();
 include 'connection.php';
-require('header.php'); ?>
+require('header.php'); 
+require ('photoPath.php');
+$userId = intval($_GET['user_id']);
+$userIndex = $userId - 1;
+$userPhotoPath = '"' . $photoPathArray[$userIndex][1] . '"';
+?>
         <div id="wrapper" class='profile'>
 
 
             <aside>
-                <img src="user.jpg" alt="Portrait de l'utilisatrice"/>
+                <img src=<?php echo $userPhotoPath?> alt="Portrait de l'utilisatrice"/>
                 <section>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez les informations de l'utilisatrice
