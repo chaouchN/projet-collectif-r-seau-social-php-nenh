@@ -25,7 +25,7 @@ require('header.php'); ?>
                         // on ne fait ce qui suit que si un formulaire a été soumis.
                         // Etape 2: récupérer ce qu'il y a dans le formulaire @todo: c'est là que votre travaille se situe
                         // observez le résultat de cette ligne de débug (vous l'effacerez ensuite)
-                        echo "<pre>" . print_r($_POST, 1) . "</pre>";
+                      
                         // et complétez le code ci dessous en remplaçant les ???
                         $new_email = $_POST['email'];
                         $new_alias = $_POST['pseudo'];
@@ -42,12 +42,13 @@ require('header.php'); ?>
                         $stmt = $pdo->prepare($sql);
 
                         // on crypte le mot de passe pour éviter d'exposer notre utilisatrice en cas d'intrusion dans nos systèmes
-                        $stmt->bindValue(':email', $_POST['email']);
+                        $stmt->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
                         $stmt->bindValue(':password', password_hash($_POST['motpasse'], PASSWORD_DEFAULT));
-                        $stmt->bindValue(':alias', $_POST['pseudo']);
+                        $stmt->bindValue(':alias', $_POST['pseudo'], PDO::PARAM_STR);
                         // NB: md5 est pédagogique mais n'est pas recommandée pour une vraies sécurité
                         //Etape 5 : construction de la requete
                         $ok = $stmt->execute();
+                        
                         // Etape 6: exécution de la requete
                         if ( ! $ok)
                         {
@@ -60,7 +61,7 @@ require('header.php'); ?>
                     }
                     ?>                     
                     <form action="registration.php" method="post">
-                        <input type='hidden'name='???' value='achanger'>
+                        <!-- <input type='hidden'name='???' value='achanger'> -->
                         <dl>
                             <dt><label for='pseudo'>Pseudo</label></dt>
                             <dd><input type='text'name='pseudo'></dd>

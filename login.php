@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+
 require('connectionPdo.php');
 
 require('header.php'); ?>
@@ -29,28 +30,40 @@ require('header.php'); ?>
                         echo "<pre>" . print_r($_POST, 1) . "</pre>";
                         // et complétez le code ci dessous en remplaçant les ???
                         $emailAVerifier = $_POST['email'];
-                        $passwdAVerifier = $_POST['password'];
+                        $passwdAVerifier = $_POST['motpasse'];
 
 
                         //Etape 3 : Ouvrir une connexion avec la base de donnée.
-                        $mysqli = new mysqli("localhost", "root", "root", "socialnetwork_tests");
+                        $pdo = connect_bd();
+
+                        $sql="SELECT * "
+                        . "FROM users "
+                        . "WHERE "
+                        . "email LIKE :email"
+                        ;
+                        $stmt = $pdo->prepare($sql);
+
+                        $stmt->bindValue(':email', $_POST['email'], PDO::PARAM_STR);
                         //Etape 4 : Petite sécurité
                         // pour éviter les injection sql : https://www.w3schools.com/sql/sql_injection.asp
-                        $emailAVerifier = $mysqli->real_escape_string($emailAVerifier);
-                        $passwdAVerifier = $mysqli->real_escape_string($passwdAVerifier);
+                        /* $emailAVerifier = $mysqli->real_escape_string($emailAVerifier);
+                        $passwdAVerifier = $mysqli->real_escape_string($passwdAVerifier); */
                         // on crypte le mot de passe pour éviter d'exposer notre utilisatrice en cas d'intrusion dans nos systèmes
-                        $passwdAVerifier = md5($passwdAVerifier);
                         // NB: md5 est pédagogique mais n'est pas recommandée pour une vraies sécurité
                         //Etape 5 : construction de la requete
-                        $lInstructionSql = "SELECT * "
-                                . "FROM users "
-                                . "WHERE "
-                                . "email LIKE '" . $emailAVerifier . "'"
-                                ;
+                        
                         // Etape 6: Vérification de l'utilisateur
-                        $res = $mysqli->query($lInstructionSql);
-                        $user = $res->fetch_assoc();
-                        if ( ! $user OR $user["password"] != $passwdAVerifier)
+                        $stmt->execute();
+                        $user= $stmt->fetch();
+                        /* $user = ->fetch_assoc(); */
+                        
+                        $passwdAVerifier = password_verify($_POST['motpasse'], $user["password"]);
+
+                        
+
+                        var_dump($passwdAVerifier);
+
+                        if ( ! $user OR ! $passwdAVerifier)
                         {
                             echo "La connexion a échouée. ";
                             
@@ -59,7 +72,9 @@ require('header.php'); ?>
                             echo "Votre connexion est un succès : " . $user['alias'] . ".";
                             // Etape 7 : Se souvenir que l'utilisateur s'est connecté pour la suite
                             // documentation: https://www.php.net/manual/fr/session.examples.basic.php
+                          session_start();
                             $_SESSION['connected_id']=$user['id'];
+                            header("Location: http://resoc.localhost/news.php");
                         }
                     }
                     ?>                     

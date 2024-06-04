@@ -1,4 +1,5 @@
 <?php
+
 include 'connection.php';
 require('header.php'); ?>
         <div id="wrapper">
@@ -8,7 +9,7 @@ require('header.php'); ?>
                     <h3>Présentation</h3>
                     <p>Sur cette page vous trouverez la liste des personnes dont
                         l'utilisatrice
-                        n° <?php echo intval($_GET['user_id']) ?>
+                        n° <?php echo $_SESSION["connected_id"] ?>
                         suit les messages
                     </p>
 
@@ -17,7 +18,7 @@ require('header.php'); ?>
             <main class='contacts'>
                 <?php
                 // Etape 1: récupérer l'id de l'utilisateur
-                $userId = intval($_GET['user_id']);
+                $userId = $_SESSION["connected_id"];
                 // Etape 3: récupérer le nom de l'utilisateur
                 $laQuestionEnSql = "
                     SELECT users.* 

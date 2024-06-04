@@ -1,5 +1,9 @@
 <?php 
 include 'connection.php';
+if (isset($_GET['deconnexion']) && $_GET['deconnexion']=='1'){
+    
+    session_destroy();
+}
 require('header.php'); ?>
         <div id="wrapper">
             <aside>
