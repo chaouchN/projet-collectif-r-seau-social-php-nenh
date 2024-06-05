@@ -1,6 +1,11 @@
 <!doctype html>
 <?php
 session_start();
+if (isset($_GET['deconnexion']) && $_GET['deconnexion']=='1'){
+    
+    session_destroy();
+    header("Location:http://resoc.localhost/news.php");
+}
 if (!isset($_SESSION["connected_id"])){
 $userid=1;
 }else{
@@ -10,13 +15,18 @@ $userid=1;
 <html lang="fr">
     <head>
         <meta charset="utf-8">
-        <title>ReSoC - Actualités</title> 
+        <title>Racoonection</title> 
         <meta name="author" content="Julien Falconnet">
         <link rel="stylesheet" href="style.css"/>
     </head>
     <body>
         <header>
-            <a href='admin.php'><img src="fouine.jpg" alt="Logo de notre réseau social"/></a>
+        <?php if (isset($_SESSION["connected_id"])){ ?>
+            <a href='admin.php'><img src="photo_profil/raton_laveur.jpg" alt="Logo de notre réseau social"/></a>
+            <?php }else{ ?>
+                <img src="photo_profil/raton_laveur.jpg" alt="Logo de notre réseau social"/><?php } ?>
+        
+            <!-- <a href='admin.php'><img src="fouine.jpg" alt="Logo de notre réseau social"/></a> -->
             <nav id="menu">
                 <a href="news.php">Actualités</a>
                 <?php if (isset($_SESSION["connected_id"])){?>
